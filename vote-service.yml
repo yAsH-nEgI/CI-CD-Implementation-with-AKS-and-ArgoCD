@@ -15,7 +15,7 @@ variables:
   dockerRegistryServiceConnection: '76162c4b-ada5-4a3d-8be4-18a2b95192ed'
   imageRepository: 'voteapp'
   containerRegistry: 'myacryash.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/result/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/vote/Dockerfile'
   tag: '$(Build.BuildId)'
 
 pool:
