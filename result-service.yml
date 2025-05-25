@@ -29,7 +29,7 @@ stages:
     displayName: Build
     steps:
     - task: Docker@2
-      displayName: Build and push an image to container registry
+      displayName: Build the image
       inputs:
         containerRegistry: 'myacryash-4712'
         repository: '$(imageRepository)'
@@ -43,7 +43,7 @@ stages:
     displayName: Push
     steps:
     - task: Docker@2
-      displayName: Build and push an image to container registry
+      displayName: Push the image
       inputs:
         containerRegistry: 'myacryash-4712'
         repository: '$(imageRepository)'
