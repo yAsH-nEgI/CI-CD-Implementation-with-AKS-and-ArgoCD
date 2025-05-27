@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the repository URL
-REPO_URL="https://ELC5yJSVXlK5nIrgiqxC1tW4f6ZJg8BF3MTbQbV2cf49MQT5KyiZJQQJ99BEACAAAAAKQP9uAAASAZDO1pDL/yashnegi/Voting-App-AKS/_git/Voting-App-AKS"
+REPO_URL="https://5MxdswVihkzb9hthwP8cOk8rj0BL9voLiMcphYOWRkzE1McFu9jtJQQJ99BEACAAAAAKQP9uAAASAZDO32uh/yashnegi/Voting-App-AKS/_git/Voting-App-AKS"
 
 # Clone the git repository into the /tmp directory
 git clone "$REPO_URL" /tmp/temp_repo
