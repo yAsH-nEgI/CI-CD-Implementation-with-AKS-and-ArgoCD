@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 # Set the repository URL
 REPO_URL="https://ELC5yJSVXlK5nIrgiqxC1tW4f6ZJg8BF3MTbQbV2cf49MQT5KyiZJQQJ99BEACAAAAAKQP9uAAASAZDO1pDL/yashnegi/Voting-App-AKS/_git/Voting-App-AKS"
 
