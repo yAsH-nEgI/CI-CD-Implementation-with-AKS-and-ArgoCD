@@ -12,7 +12,6 @@ FROM --platform=linux mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG TARGETPLATFORM
 ARG TARGETARCH
 ARG BUILDPLATFORM
-RUN echo "I am running on linux, building for linux
 
 WORKDIR /source
 COPY *.csproj .
