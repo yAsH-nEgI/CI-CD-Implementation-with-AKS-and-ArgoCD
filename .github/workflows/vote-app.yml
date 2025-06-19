@@ -45,7 +45,17 @@ jobs:
           tags: |
             ghcr.io/${{ env.OWNER_LC }}/vote:latest
             ghcr.io/${{ env.OWNER_LC }}/vote:${{ github.sha }}
+            
+      - name: Update image tag in vote-deployment.yml
+        run: |
+          sed -i "s|image:.*|image: ghcr.io/${{ env.OWNER_LC }}/vote:${{ github.sha }}|g" k8s-specifications/vote-deployment.yml
+          echo "Updated vote image to ghcr.io/${{ env.OWNER_LC }}/vote:${{ github.sha }}"
 
-      - name: Output image URL
-        run: echo "Image pushed:ghcr.io/${{ github.repository_owner }}/vote:${{ github.sha }}"
+      - name: Commit and push updated deployment YAML
+        run: |
+          git config user.name "yash negi"
+          git config user.email "yashnegi822002@gmail.com"
+          git add .
+          git commit -m "Update vote image tag to ${{ github.sha }}"
+          git push
         
