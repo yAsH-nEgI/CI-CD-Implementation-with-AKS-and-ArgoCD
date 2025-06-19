@@ -29,7 +29,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
-
+          
+      - name: Convert repository owner to lowercase
+        id: lowercase
+        run: echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
+        env:
+          OWNER: ${{ github.repository_owner }}
+          
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -37,8 +43,8 @@ jobs:
           file: ./vote/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/vote:latest
-            ghcr.io/${{ github.repository_owner }}/vote:${{ github.sha }}
+            ghcr.io/${{ env.OWNER_LC }}/vote:latest
+            ghcr.io/${{ env.OWNER_LC }}/vote:${{ github.sha }}
 
       - name: Output image URL
         run: echo "Image pushed:ghcr.io/${{ github.repository_owner }}/vote:${{ github.sha }}"
