@@ -1,0 +1,51 @@
+name: Build and Push Worker Image
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'worker/**'
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_PAT }}
+          
+      - name: Convert repository owner to lowercase
+        id: lowercase
+        run: echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
+        env:
+          OWNER: ${{ github.repository_owner }}
+          
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./worker
+          file: ./worker/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ env.OWNER_LC }}/worker:latest
+            ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}
+
+      - name: Output image URL
+        run: echo "Image pushed:ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}"
+        
