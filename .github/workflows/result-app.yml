@@ -1,4 +1,4 @@
-name: Build and Push Vote Image
+name: Build and Push Result Image
 
 on:
   workflow_dispatch:
