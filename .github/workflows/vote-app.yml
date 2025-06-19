@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -48,7 +48,7 @@ jobs:
             
       - name: Update image tag in vote-deployment.yml
         run: |
-          git clone ${{ vars.REPO_URL }} /tmp/temp_repo
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} /tmp/temp_repo
           cd /tmp/temp_repo
           sed -i "s|image:.*|image: ghcr.io/${{ env.OWNER_LC }}/vote:${{ github.sha }}|g" k8s-specifications/vote-deployment.yaml
           git config user.name "Yash Negi"
