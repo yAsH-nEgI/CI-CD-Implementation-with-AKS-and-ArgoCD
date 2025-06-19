@@ -50,7 +50,7 @@ jobs:
         run: |
           git clone ${{ vars.REPO_URL }} /tmp/temp_repo
           cd /tmp/temp_repo
-          sed -i "s|image:.*|image: ghcr.io/${{ env.OWNER_LC }}/vote:${{ github.sha }}|g" k8s-specifications/vote-deployment.yml
+          sed -i "s|image:.*|image: ghcr.io/${{ env.OWNER_LC }}/vote:${{ github.sha }}|g" k8s-specifications/vote-deployment.yaml
           git config user.name "yash negi"
           git config user.email "yashnegi822002@gmail.com"
           git add .
