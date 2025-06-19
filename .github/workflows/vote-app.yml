@@ -1,10 +1,10 @@
 name: Build and Push Vote Image
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'vote/**'
-      - 'workflow_dispatch'
     branches:
       - main
 
