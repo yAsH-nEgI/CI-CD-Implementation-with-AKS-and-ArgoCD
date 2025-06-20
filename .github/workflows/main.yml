@@ -1,0 +1,38 @@
+name: Deploy to GKE
+
+on:
+  push:
+    paths:
+      - 'k8s-specifications/**'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: Get GKE credentials
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: ci-cd-cluster
+          location: us-central1-a
+          project_id: lunar-parsec-457813-u5
+
+      - name: Deploy manifests to GKE
+        run: |
+          kubectl create namespace demo-app
+          kubectl apply -f k8s-specifications/ -n demo-app
+          kubectl get pods -o wide -n demo-app
