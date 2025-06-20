@@ -33,6 +33,4 @@ jobs:
 
       - name: Deploy manifests to GKE
         run: |
-          kubectl create namespace demo-app
           kubectl apply -f k8s-specifications/ -n demo-app
-          kubectl get pods -o wide -n demo-app
