@@ -1,4 +1,4 @@
-name: Build and Push Worker Image
+name: Build and Push WOrker Image
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -39,13 +39,13 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./worker
-          file: ./worker/Dockerfile
+          context: ./vote
+          file: ./vote/Dockerfile
           push: true
           tags: |
             ghcr.io/${{ env.OWNER_LC }}/worker:latest
             ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}
-
+            
       - name: Update image tag in worker-deployment.yml
         run: |
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} /tmp/temp_repo
@@ -58,4 +58,3 @@ jobs:
           git push
           echo "Updated worker image to ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}"
           rm -rf /tmp/temp_repo
-        
