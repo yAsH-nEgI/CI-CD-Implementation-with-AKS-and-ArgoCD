@@ -46,6 +46,16 @@ jobs:
             ghcr.io/${{ env.OWNER_LC }}/worker:latest
             ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}
 
-      - name: Output image URL
-        run: echo "Image pushed:ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}"
+      - name: Update image tag in worker-deployment.yml
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} /tmp/temp_repo
+          cd /tmp/temp_repo
+          sed -i "s|image:.*|image: ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}|g" k8s-specifications/worker-deployment.yaml
+          git config user.name "Yash Negi"
+          git config user.email "yashnegi822002@gmail.com"
+          git add .
+          git commit -m "Update worker image tag to ${{ github.sha }}"
+          git push
+          echo "Updated worker image to ghcr.io/${{ env.OWNER_LC }}/worker:${{ github.sha }}"
+          rm -rf /tmp/temp_repo
         
