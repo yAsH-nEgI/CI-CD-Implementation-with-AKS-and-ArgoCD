@@ -15,7 +15,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_result
+      - image: ghcr.io/yash-negi/result:4bf39bb399f49a4e78b567f7f7e2ea5d86d42e74
         name: result
         ports:
         - containerPort: 80
