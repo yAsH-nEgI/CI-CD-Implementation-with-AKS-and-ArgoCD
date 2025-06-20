@@ -14,6 +14,8 @@ spec:
       labels:
         app: vote
     spec:
+      imagePullSecrets:
+      - name: ghcr-secret
       containers:
       - image: ghcr.io/yash-negi/vote:c82a8cc5a3652386feb8598d0d527a4f25af1374
         name: vote
